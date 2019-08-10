@@ -1,6 +1,5 @@
-package com.emp;
+package com.emp.controller;
 
-import java.awt.print.Book;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.emp.entity.Employee;
 import com.emp.service.EmployeeService;
 
 
 @RestController
 public class EmployeeController {
-	/**
-	 * produces json response with the following request parameter.
-	 */
+	
     @Autowired
     private EmployeeService employeeService;
     
-    
+    /**
+	 * produces json response with the following request parameter.
+	 */
     @RequestMapping(value = "/employee",   params = { "id"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Employee findOne(@RequestParam(value="id")  int id) {
 		return employeeService.findById(id);
@@ -52,9 +52,9 @@ public class EmployeeController {
 	 */
     
     @GetMapping("/employee")
-    List<Book> findAll() {
-        //return employeeService.findAll();
-    	return null;
+    List<Employee> findAll() {
+        return employeeService.findAll();
+    
     }
     
     

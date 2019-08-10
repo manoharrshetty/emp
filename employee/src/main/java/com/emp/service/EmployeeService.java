@@ -2,7 +2,7 @@ package com.emp.service;
 
 import java.util.List;
 
-import com.emp.Employee;
+import com.emp.entity.Employee;
 
 public interface EmployeeService {
 	

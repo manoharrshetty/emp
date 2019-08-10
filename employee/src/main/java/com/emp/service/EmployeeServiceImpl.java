@@ -1,5 +1,6 @@
 package com.emp.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.emp.Employee;
+import com.emp.entity.Employee;
 import com.emp.repository.EmployeeRepository;
 
 @Service
@@ -44,8 +45,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public List<Employee> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Iterable<Employee> employees  = repository.findAll();
+		List<Employee> emps = new ArrayList<Employee>();
+		employees.forEach(e -> emps.add(e));
+		return emps;
 	}
 	
 

@@ -1,4 +1,4 @@
-package com.emp.service;
+package com.emp.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
