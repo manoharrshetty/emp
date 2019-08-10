@@ -1,0 +1,7 @@
+https://www.ibm.com/support/knowledgecenter/en/SS4SVW_beta/designing/designingapis.html
+
+
+--rest design 
+There are many cases of unattractive Web APIs that use HTTP GET to trigger something transactional on the server—for instance, to add records to a database. In these cases the GET request URI is not used properly or at least not used RESTfully. If the Web API uses GET to invoke remote procedures, it looks like this: 
+
+GET /adduser?name=Robert HTTP/1.1
