@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()  
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
@@ -20,6 +21,10 @@ bootJar {
 
 repositories {
     mavenCentral()
+    
+    //this is required because odbc jar is in your local maven repository.Below is the command that you ran
+    //mvn install:install-file -Dfile=C:\Users\manoh\java\software\ojdbc7-12.1.0.2.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar
+    mavenLocal()  
 }
 
 sourceCompatibility = 1.9
@@ -29,10 +34,11 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
   	compile("org.springframework.boot:spring-boot-starter-data-jpa")
   	compile("org.springframework.boot:spring-boot-starter-security")
-
-  	// Use MySQL Connector-J
-    compile 'mysql:mysql-connector-java'
-
+ 	compile group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
+ 	// https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
+ 	
+  	
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')
 }
