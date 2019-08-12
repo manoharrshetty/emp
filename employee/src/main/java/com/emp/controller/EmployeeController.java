@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emp.entity.Employee;
+import com.emp.model.Employee;
 import com.emp.service.EmployeeService;
 
 
@@ -27,21 +27,21 @@ public class EmployeeController {
     /**
 	 * produces json response with the following request parameter.
 	 */
-    @RequestMapping(value = "/employee",   params = { "id"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public Employee findOne(@RequestParam(value="id")  int id) {
-		return employeeService.findById(id);
-		
-	}
+    //@RequestMapping(value = "/employee",   params = { "id"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    //public Employee findOne(@RequestParam(value="id")  int id) {
+	//	return employeeService.findById(id);
+	//	
+	//}
     /**
      * produces JSON response with the following request parameters.
      * @param name
      * @param age
      * @return
      */
-    @RequestMapping(value = "/employee",   params = { "name","age"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Employee> findByNameAndAge(@RequestParam(value="name")  String name,@RequestParam(value="age")  int age) {
-    	return employeeService.findByNameAndAge(name, age);
-	}
+    //@RequestMapping(value = "/employee",   params = { "name","age"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    //public List<Employee> findByNameAndAge(@RequestParam(value="name")  String name,@RequestParam(value="age")  int age) {
+    //	return employeeService.findByNameAndAge(name, age);
+	//}
     
 	/*
 	 * Annotation for mapping HTTP GET requests onto specific handler methods.
@@ -62,11 +62,11 @@ public class EmployeeController {
 
     // Save
     //return 201 instead of 200
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/employee")
-    public Employee save(@RequestBody Employee newEmployee) {
-    	return employeeService.save(newEmployee);
-    }
+    //@ResponseStatus(HttpStatus.CREATED)
+    //@PostMapping("/employee")
+    //public Employee save(@RequestBody Employee newEmployee) {
+    //	return employeeService.save(newEmployee);
+    //}
     
 }
 
