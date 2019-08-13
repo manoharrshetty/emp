@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- When using starters, Logback is used for logging by default.  -->
+<!-- When using spring boot starters, Logback is used for logging by default.  -->
 <configuration>
  
     <property name="LOGS" value="./logs" />

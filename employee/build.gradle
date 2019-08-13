@@ -38,6 +38,9 @@ dependencies {
  	// https://mvnrepository.com/artifact/com.zaxxer/HikariCP
 	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
  	
+ 	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
+ 	
   	
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path')

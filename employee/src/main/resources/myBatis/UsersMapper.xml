@@ -6,8 +6,7 @@
   <result property="name" column="name"/>
   <result property="password" column="password"/>
   <result property="role" column="role"/>
-  <result property="gender" column="gender"/>
-  <result property="gender" column="gender"/>
+  
 </resultMap>
 
     <select id="findByName" resultMap="UsersResultMap"  >

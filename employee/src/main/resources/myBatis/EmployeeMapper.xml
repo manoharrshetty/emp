@@ -1,16 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emp.mapper.EmployeeMapper">
-<resultMap id="EmployeeResultMap" type="Employee">
-  <id property="empId" column="emp_id" />
-  <result property="firstName" column="first_name"/>
-  <result property="lastName" column="last_name"/>
-</resultMap>
+	<resultMap id="EmployeeResultMap" type="Employee">
+		<id property="empId" column="emp_id" />
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="gender" column="gender" />
+		<result property="birthDate" column="birth_date" />
+		<result property="hireDate" column="hire_date" />
+	</resultMap>
 
-    <select id="findAll" resultMap="EmployeeResultMap" >
-        SELECT emp_id , first_name, last_name FROM employee
-    </select>
+	<select id="findAll" resultMap="EmployeeResultMap">
+		SELECT * FROM employee
+	</select>
 
+
+	<select id="findNextSeq" resultType="java.lang.Integer">
+		SELECT employee_seq.nextval FROM dual
+	</select>
+
+
+	<select id="findByQuery"  resultMap="EmployeeResultMap" parameterType="EmployeeQuery">
+		SELECT * FROM employee where 1 = 1 
+		<if test="empId != null">
+    		AND emp_id = #{empId}
+ 	 </if>
+  		<if test="firstName != null">
+    		AND first_name like #{firstName}
+  		</if>
+  		<if test="lastName != null">
+    		AND last_name like #{lastName}
+  		</if>
+	</select>
+
+
+	<insert id="save" parameterType="Employee">
+		insert into employee(emp_id,first_name,last_name,gender,birth_date,hire_date)
+		values
+		(#{empId},#{firstName},#{lastName},#{gender},#{birthDate},#{hireDate})
+	</insert>
+	
+	<update id="update" parameterType="Employee">
+		update employee set first_name = #{firstName} ,
+							last_name = #{lastName},
+							gender = #{gender} ,
+							birth_date = #{birthDate},
+							hire_date  = #{hireDate} 
+							where emp_id = #{empId}
+	
+	</update>
 </mapper>
 
 
