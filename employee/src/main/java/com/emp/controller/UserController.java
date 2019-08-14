@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emp.model.Employee;
-import com.emp.model.EmployeeQuery;
-import com.emp.service.EmployeeService;
+import com.emp.model.Users;
+import com.emp.model.UsersQuery;
+import com.emp.service.UsersService;
 
 
 @RestController
-public class EmployeeController {
+public class UserController {
 	
     @Autowired
-    private EmployeeService employeeService;
+    private UsersService usersService;
     
    
-    @RequestMapping(value = "/employee/emp",   params = { "empId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Employee> findByEmpId(@RequestParam(value="empId")  Integer empId) {
-    	EmployeeQuery query = new EmployeeQuery();
-    	query.setEmpId(empId);
-    	return employeeService.findByQuery(query);
+    @RequestMapping(value = "/employee/users",   params = { "usersId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<Users> findByUsersId(@RequestParam(value="usersId")  Integer usersId) {
+    	UsersQuery query = new UsersQuery();
+    	query.setUsersId(usersId);
+    	return usersService.findByQuery(query);
 	}
     
     /**
@@ -44,9 +44,9 @@ public class EmployeeController {
      * @param lastName
      * @return
      */
-    @RequestMapping(value = "/employee/emp",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Employee> findByQuery(@ModelAttribute("employeeQuery") Optional<EmployeeQuery> 	employeeQuery) {
-    	return employeeService.findByQuery(employeeQuery.orElse(new EmployeeQuery()));
+    @RequestMapping(value = "/employee/users",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<Users> findByQuery(@ModelAttribute("usersQuery") Optional<UsersQuery> 	usersQuery) {
+    	return usersService.findByQuery(usersQuery.orElse(new UsersQuery()));
 	}
     
 	
@@ -57,16 +57,16 @@ public class EmployeeController {
     
     //return 201 instead of 200
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/employee/emp")
-    public Employee save(@RequestBody Employee newEmployee) {
-    	return employeeService.save(newEmployee);
+    @PostMapping("/employee/users")
+    public Users save(@RequestBody Users newUsers) {
+    	return usersService.save(newUsers);
     }
     
     
   
-    @PutMapping("/employee/emp")
-    public Employee put(@RequestBody Employee employee) {
-    	return employeeService.update(employee);
+    @PutMapping("/employee/users")
+    public Users put(@RequestBody Users users) {
+    	return usersService.update(users);
     }
 }
 

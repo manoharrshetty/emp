@@ -10,7 +10,7 @@ import com.emp.model.Employee;
 import com.emp.model.EmployeeQuery;
 
 @Service
-public class EmployeeServiceImpl extends TransactionService implements EmployeeService {
+public class EmployeeServiceImpl extends TransactionService<Employee,EmployeeQuery> implements EmployeeService {
 	
 	@Autowired
     private EmployeeMapper employeeMapper;

@@ -2,6 +2,7 @@ drop table dept_emp;
 drop sequence employee_seq;
 drop table employee;
 drop table department;
+drop sequence users_seq;
 drop table users;
 
 
@@ -10,8 +11,8 @@ CREATE TABLE employee
  first_name  VARCHAR2(100)     NOT NULL,
  last_name   VARCHAR2(100)     NOT NULL,
  gender   char(1)     NOT NULL,
-  birth_date  DATE            default SYSDATE,
-  hire_date   DATE            default SYSDATE,
+  birth_date  DATE        NOT NULL,
+  hire_date   DATE         NOT NULL,
   last_modified_date DATE default SYSDATE,
   CONSTRAINT employee_pk PRIMARY KEY (emp_id)
 );
@@ -27,7 +28,7 @@ INSERT INTO employee (emp_id, first_name,last_name,gender,birth_date,hire_date) 
 
 COMMIT;
 select * from employee;
-
+SELECT employee_seq.nextval FROM dual;
 
 CREATE TABLE department (
     dept_id      number(10) NOT NULL,
@@ -61,13 +62,22 @@ CREATE TABLE users
   CONSTRAINT users_pk PRIMARY KEY (users_id)
 );
 
-
+CREATE SEQUENCE users_seq
+ START WITH     1
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
 
 
 INSERT INTO users
 (users_id, name,password,role)
 VALUES
-(1, 'manohar','$2a$10$EW9ZNsU/QAMDZnzJrgQOLuoVAHzpA7tuQlT.FKjz8ggdhzhvNewxq','USER');
+(users_seq.nextval, 'manohar','$2a$10$EW9ZNsU/QAMDZnzJrgQOLuoVAHzpA7tuQlT.FKjz8ggdhzhvNewxq','ADMIN');
+
+INSERT INTO users
+(users_id, name,password,role)
+VALUES
+(users_seq.nextval, 'prasad','$2a$10$EW9ZNsU/QAMDZnzJrgQOLuoVAHzpA7tuQlT.FKjz8ggdhzhvNewxq','USER');
 COMMIT;
 
 
