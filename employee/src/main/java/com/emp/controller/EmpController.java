@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.emp.model.Employee;
-import com.emp.model.EmployeeQuery;
-import com.emp.service.EmployeeService;
+import com.emp.model.Emp;
+import com.emp.model.EmpQuery;
+import com.emp.service.EmpService;
 
 
 @RestController
-public class EmployeeController {
+public class EmpController {
 	
     @Autowired
-    private EmployeeService employeeService;
+    private EmpService employeeService;
     
    
     @RequestMapping(value = "/employee/emp",   params = { "empId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Employee> findByEmpId(@RequestParam(value="empId")  Integer empId) {
-    	EmployeeQuery query = new EmployeeQuery();
+    public List<Emp> findByEmpId(@RequestParam(value="empId")  Integer empId) {
+    	EmpQuery query = new EmpQuery();
     	query.setEmpId(empId);
     	return employeeService.findByQuery(query);
 	}
@@ -45,8 +45,8 @@ public class EmployeeController {
      * @return
      */
     @RequestMapping(value = "/employee/emp",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Employee> findByQuery(@ModelAttribute("employeeQuery") Optional<EmployeeQuery> 	employeeQuery) {
-    	return employeeService.findByQuery(employeeQuery.orElse(new EmployeeQuery()));
+    public List<Emp> findByQuery(@ModelAttribute("employeeQuery") Optional<EmpQuery> 	employeeQuery) {
+    	return employeeService.findByQuery(employeeQuery.orElse(new EmpQuery()));
 	}
     
 	
@@ -58,14 +58,14 @@ public class EmployeeController {
     //return 201 instead of 200
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employee/emp")
-    public Employee save(@RequestBody Employee newEmployee) {
+    public Emp save(@RequestBody Emp newEmployee) {
     	return employeeService.save(newEmployee);
     }
     
     
   
     @PutMapping("/employee/emp")
-    public Employee put(@RequestBody Employee employee) {
+    public Emp put(@RequestBody Emp employee) {
     	return employeeService.update(employee);
     }
 }

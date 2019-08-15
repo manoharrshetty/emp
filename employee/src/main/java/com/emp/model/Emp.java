@@ -3,7 +3,7 @@ package com.emp.model;
 import java.util.Date;
 
 
-public class EmployeeQuery {
+public class Emp {
 	
    
     

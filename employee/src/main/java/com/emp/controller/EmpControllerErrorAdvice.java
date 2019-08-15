@@ -12,14 +12,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.emp.exception.CustomErrorResponse;
-import com.emp.exception.EmployeeNotFoundException;
+import com.emp.exception.EmpNotFoundException;
 
 @ControllerAdvice
-public class EmployeeControllerErrorAdvice extends ResponseEntityExceptionHandler {
-	Logger logger = LoggerFactory.getLogger(EmployeeControllerErrorAdvice.class);	
+public class EmpControllerErrorAdvice extends ResponseEntityExceptionHandler {
+	Logger logger = LoggerFactory.getLogger(EmpControllerErrorAdvice.class);	
 	
 	
-	@ExceptionHandler(EmployeeNotFoundException.class)
+	@ExceptionHandler(EmpNotFoundException.class)
     public ResponseEntity<CustomErrorResponse> customHandleNotFound(Exception ex, WebRequest request) {
 		return error(HttpStatus.NOT_FOUND,ex);
 

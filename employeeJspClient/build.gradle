@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()  
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    
+    //this is required because odbc jar is in your local maven repository.Below is the command that you ran
+    //mvn install:install-file -Dfile=C:\Users\manoh\java\software\ojdbc7-12.1.0.2.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.2 -Dpackaging=jar
+    mavenLocal()  
+}
+
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+// https://mvnrepository.com/artifact/javax.servlet/jstl
+compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+ 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.1'
+ 	// https://mvnrepository.com/artifact/org.eclipse.jdt.core.compiler/ecj
+	compile group: 'org.eclipse.jdt.core.compiler', name: 'ecj', version: '4.6.1'
+ 	
+  	
+  	
+   
+}

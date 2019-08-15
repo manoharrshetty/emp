@@ -11,6 +11,11 @@ public class PasswordEncodeGenerator {
 
   public static void main(String[] args) {
 	  try {
+		  
+		  
+		  
+		  
+		  
 		  List<String> users = new ArrayList<String>();
 		  users.add("1");
 		  users.add("2");

@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("USER")
         .antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("USER")
         .antMatchers(HttpMethod.GET, "/employee/emp/**").hasRole("USER")//all get request must be made by user has USER role configured in the user table.
-        .antMatchers(HttpMethod.POST, "/employee/empl").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/employee/emp").hasRole("USER")
         .antMatchers(HttpMethod.PUT, "/employee/emp/**").hasRole("USER")
         .antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasRole("ADMIN")
         .antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasRole("USER")
