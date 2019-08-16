@@ -13,7 +13,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.emp.exception.CustomErrorResponse;
 import com.emp.exception.EmpNotFoundException;
-
+/**
+ * handles exception from all the controllers.
+ * @author manoh
+ *
+ */
 @ControllerAdvice
 public class EmpControllerErrorAdvice extends ResponseEntityExceptionHandler {
 	Logger logger = LoggerFactory.getLogger(EmpControllerErrorAdvice.class);	

@@ -1,0 +1,2 @@
+https://www.javatpoint.com/spring-mvc-crud-example
+https://crunchify.com/simplest-spring-mvc-hello-world-example-tutorial-spring-model-view-controller-tips/

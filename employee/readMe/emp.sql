@@ -77,7 +77,7 @@ VALUES
 INSERT INTO users
 (users_id, name,password,role)
 VALUES
-(users_seq.nextval, 'prasad','$2a$10$EW9ZNsU/QAMDZnzJrgQOLuoVAHzpA7tuQlT.FKjz8ggdhzhvNewxq','USER');
+(users_seq.nextval, 'diya','$2a$10$EW9ZNsU/QAMDZnzJrgQOLuoVAHzpA7tuQlT.FKjz8ggdhzhvNewxq','ADMIN');
 COMMIT;
 
 

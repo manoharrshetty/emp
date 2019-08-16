@@ -15,6 +15,9 @@
 	    <!-- if you use * to get all fields then password will also be retrieved because the field name matches both in the model and sql table !! -->
 		SELECT users_id,name,role FROM users
 	</select>
+	<select id="findById" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM users where users_id = #{id}
+	</select>
 
 
 	<select id="findNextSeq" resultType="java.lang.Integer">
@@ -25,7 +28,7 @@
 
 	<select id="findByQuery" resultMap="UsersResultMap"
 		parameterType="UsersQuery">
-		SELECT * FROM users where 1 = 1
+		SELECT users_id,name,role FROM users where 1 = 1
 		<if test="usersId != null">
 			AND users_id = #{usersId}
 		</if>

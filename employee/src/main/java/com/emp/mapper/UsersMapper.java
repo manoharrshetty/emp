@@ -6,7 +6,7 @@ import com.emp.model.Users;
 import com.emp.model.UsersQuery;
 
 @Mapper
-public interface UsersMapper extends IbatisMapper<Users,UsersQuery> {
+public interface UsersMapper extends IbatisMapper<Users,UsersQuery,Integer> {
 
 
     Users findByName(String name);

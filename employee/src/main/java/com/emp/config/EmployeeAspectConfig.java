@@ -25,7 +25,7 @@ public class EmployeeAspectConfig {
     }
     
     
-    @Around("execution(* com.emp..mapper..*.save*(..)) || execution(* com.emp..mapper..*.update*(..))")
+    @Around("execution(* com.emp..mapper..*.save*(..)) || execution(* com.emp..mapper..*.update*(..))  || execution(* com.emp..mapper..*.delete*(..))")
     public void aroundSave(ProceedingJoinPoint joinPoint) throws Throwable {
     	long startTime = 0L;
     	try {

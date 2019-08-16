@@ -15,6 +15,10 @@
 	</select>
 
 
+	<select id="findById" resultMap="EmpResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM employee where emp_id = #{id}
+	</select>
+
 	<select id="findNextSeq" resultType="java.lang.Integer">
 		SELECT employee_seq.nextval FROM dual
 	</select>
@@ -49,6 +53,12 @@
 							where emp_id = #{empId}
 	
 	</update>
+	
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from employee where emp_id = #{empId}			
+	
+	</delete>
 </mapper>
 
 

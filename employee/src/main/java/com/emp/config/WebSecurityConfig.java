@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity//enable Spring Security’s web security support and provide the Spring MVC integration
@@ -30,15 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .httpBasic()
         .and()
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/employee/users/**").hasRole("USER")//all request related to users must be an admin
-        .antMatchers(HttpMethod.POST, "/employee/users").hasRole("USER")
-        .antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("USER")
-        .antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("USER")
-        .antMatchers(HttpMethod.GET, "/employee/emp/**").hasRole("USER")//all get request must be made by user has USER role configured in the user table.
-        .antMatchers(HttpMethod.POST, "/employee/emp").hasRole("USER")
-        .antMatchers(HttpMethod.PUT, "/employee/emp/**").hasRole("USER")
-        .antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasRole("ADMIN")
-        .antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/employee/users/**").hasRole("ADMIN")//all request related to users must be an ADMIN
+        .antMatchers(HttpMethod.POST, "/employee/users").hasRole("ADMIN")
+        .antMatchers(HttpMethod.PUT, "/employee/users/**").hasRole("ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/employee/users/**").hasRole("ADMIN")
+        .antMatchers(HttpMethod.GET, "/employee/emp/**").hasAnyRole("USER","ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
+        .antMatchers(HttpMethod.POST, "/employee/emp").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.PUT, "/employee/emp/**").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasAnyRole("USER","ADMIN")
         .and()
         .csrf().disable()
         .formLogin().disable();
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Bean
    	public PasswordEncoder passwordEncoder(){
-   		PasswordEncoder encoder = EmployeeEncoder.getEncoder();
+   		PasswordEncoder encoder = new BCryptPasswordEncoder();
    		return encoder;
    	}
 }
