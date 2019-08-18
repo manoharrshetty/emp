@@ -1,7 +1,7 @@
 package com.emp.service;
 
 import static com.emp.enums.MessageKey.USER_DOESNOT_EXIT;
-import static com.emp.util.PropertiesUtil.PROPERTIES_INSTANCE;
+import static com.emp.util.MessageUtil.MESSAGE_PROPERTIES_INSTANCE;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class UsersServiceImpl extends TransactionService<Users,UsersQuery> imple
 	public void delete(Integer id) {
 		List<Users> usersList  = usersMapper.findById(id);
 		if (usersList.isEmpty()) {
-			throw new RuntimeException(String.format(PROPERTIES_INSTANCE.getMessage(USER_DOESNOT_EXIT.name()), id));
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(USER_DOESNOT_EXIT.name()), id));
 		}
 		usersMapper.delete(id);
 	}

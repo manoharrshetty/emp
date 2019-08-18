@@ -1,6 +1,8 @@
 package com.emp.config;
 
 
+import javax.servlet.Filter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 @Configuration
 @EnableWebSecurity//enable Spring Security’s web security support and provide the Spring MVC integration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -72,4 +75,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    		PasswordEncoder encoder = new BCryptPasswordEncoder();
    		return encoder;
    	}
+    
+    
+    @Bean
+    public Filter shallowEtagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
+    }
 }

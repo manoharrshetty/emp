@@ -8,3 +8,4 @@
  */
 
 rootProject.name = 'employee'
+include 'employee-service'

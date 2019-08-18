@@ -7,16 +7,16 @@ import java.util.Properties;
  * @author manoh
  *
  */
-public class PropertiesUtil {
+public abstract class PropertiesUtil {
 
-	public static final PropertiesUtil PROPERTIES_INSTANCE = new PropertiesUtil();
+	
 	private final Properties properties = new Properties();
 
-	private PropertiesUtil() {
-		try (InputStream input = this.getClass().getClassLoader().getResourceAsStream("message.properties")) {
+	protected PropertiesUtil(String resourceFileName) {
+		try (InputStream input = this.getClass().getClassLoader().getResourceAsStream(resourceFileName)) {
 
 			if (input == null) {
-				throw new RuntimeException("Properties message.properties not found");
+				throw new RuntimeException("Properties " + resourceFileName  + " not found");
 
 			}
 

@@ -1,0 +1,9 @@
+curl  --request GET -H "Accept: application/json" -u diya:K!delq6w -i http://localhost:8888/employee/emp?empId=2
+
+
+curl -X POST http://localhost:8888/employee/emp -u diya:K!delq6w  'content-type: application/json' -H 'postman-token: d5a59db6-a9ed-ecc2-9ff1-7f03ceedd457' -d '{"firstName":"pradeep1","lastName":"shetty","birthDate":"1978-04-29","hireDate":"2019-04-29","gender":"M"}'
+
+curl  --request GET -H "Accept: application/json" -u diya:K!delq6w -i http://localhost:8888/employee/emp?empId=2
+
+curl -H "Accept: application/json" -u diya:K!delq6w -i http://localhost:8888/employee/emp?empId=2
+

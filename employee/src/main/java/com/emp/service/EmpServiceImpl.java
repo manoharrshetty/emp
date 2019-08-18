@@ -1,7 +1,7 @@
 package com.emp.service;
 
 import static com.emp.enums.MessageKey.EMPLOYEE_DOESNOT_EXIT;
-import static com.emp.util.PropertiesUtil.PROPERTIES_INSTANCE;
+import static com.emp.util.MessageUtil.MESSAGE_PROPERTIES_INSTANCE;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class EmpServiceImpl  implements EmpService {
 	public void delete(Integer id) {
 		List<Emp> employees  = employeeMapper.findById(id);
 		if (employees.isEmpty()) {
-			throw new RuntimeException(String.format(PROPERTIES_INSTANCE.getMessage(EMPLOYEE_DOESNOT_EXIT.name()), id));
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(EMPLOYEE_DOESNOT_EXIT.name()), id));
 		}
 		
 		employeeMapper.delete(id);
