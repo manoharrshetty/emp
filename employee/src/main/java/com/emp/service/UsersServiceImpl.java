@@ -1,6 +1,7 @@
 package com.emp.service;
 
-import static com.emp.enums.MessageKey.USER_DOESNOT_EXIT;
+import static com.emp.enums.MessageKey.DELETE_NOT_SUCCESSFUL;
+import static com.emp.enums.MessageKey.UPDATE_NOT_SUCCESSFUL;
 import static com.emp.util.MessageUtil.MESSAGE_PROPERTIES_INSTANCE;
 
 import java.util.List;
@@ -10,14 +11,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.emp.enums.MessageKey;
 import com.emp.mapper.UsersMapper;
 import com.emp.model.Users;
 import com.emp.model.UsersQuery;
 
 
 @Service
-public class UsersServiceImpl extends TransactionService<Users,UsersQuery> implements UsersService {
+public class UsersServiceImpl  implements UsersService {
 	
 	@Autowired
     private UsersMapper usersMapper;
@@ -34,7 +34,7 @@ public class UsersServiceImpl extends TransactionService<Users,UsersQuery> imple
 	public Users save(Users users) {
 		
 		int empId  = usersMapper.findNextSeq();
-		users.setUsersId(empId);
+		users.setId(empId);
 
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
 		
@@ -47,8 +47,10 @@ public class UsersServiceImpl extends TransactionService<Users,UsersQuery> imple
 	@Override
 	public Users update(Users users) {
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
-		usersMapper.update(users);
-		
+		int count  = usersMapper.update(users);
+		if (count == 0 ) {
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(UPDATE_NOT_SUCCESSFUL.name()), users.getId()));
+		}
 		return users;
 		
 	}
@@ -56,11 +58,11 @@ public class UsersServiceImpl extends TransactionService<Users,UsersQuery> imple
 	@Transactional
 	@Override
 	public void delete(Integer id) {
-		List<Users> usersList  = usersMapper.findById(id);
-		if (usersList.isEmpty()) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(USER_DOESNOT_EXIT.name()), id));
+		
+		int count = usersMapper.delete(id);
+		if (count == 0 ) {
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(DELETE_NOT_SUCCESSFUL.name()), id));
 		}
-		usersMapper.delete(id);
 	}
 	
 	@Override

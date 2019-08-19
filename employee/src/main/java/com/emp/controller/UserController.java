@@ -32,7 +32,7 @@ public class UserController {
     @RequestMapping(value = "/employee/users",   params = { "usersId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<Users> findByUsersId(@RequestParam(value="usersId")  Integer usersId) {
     	UsersQuery query = new UsersQuery();
-    	query.setUsersId(usersId);
+    	query.setId(usersId);
     	return usersService.findByQuery(query);
 	}
     

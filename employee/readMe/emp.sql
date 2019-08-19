@@ -14,6 +14,7 @@ CREATE TABLE employee
   birth_date  DATE        NOT NULL,
   hire_date   DATE         NOT NULL,
   last_modified_date DATE default SYSDATE,
+  version number (10) default 1,
   CONSTRAINT employee_pk PRIMARY KEY (emp_id)
 );
 
@@ -34,6 +35,7 @@ CREATE TABLE department (
     dept_id      number(10) NOT NULL,
     dept_name   VARCHAR(40)     NOT NULL,
     last_modified_date DATE default SYSDATE,
+    version number (10) default 1,
     CONSTRAINT department_pk PRIMARY KEY (dept_id),
     CONSTRAINT department_uk1 UNIQUE(dept_name)
 
@@ -47,6 +49,7 @@ CREATE TABLE dept_emp (
     from_date   DATE        NOT NULL,
     to_date     DATE        NOT NULL,
     last_modified_date DATE default SYSDATE,
+    version number (10) default 1,
     CONSTRAINT dept_emp_pk PRIMARY KEY (dept_emp_id),
     CONSTRAINT dept_emp_uk1 UNIQUE(emp_id,dept_id),
     CONSTRAINT dept_emp_fk1     FOREIGN KEY (emp_id)     REFERENCES employee(emp_id),
@@ -59,6 +62,7 @@ CREATE TABLE users
   name varchar2(50) NOT NULL,
   password varchar2(100) NOT NULL,
   role varchar2(50) NOT NULL,
+  version number (10) default 1,
   CONSTRAINT users_pk PRIMARY KEY (users_id)
 );
 

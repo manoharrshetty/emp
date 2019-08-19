@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.emp.mapper.EmpMapper">
 	<resultMap id="EmpResultMap" type="Emp">
-		<id property="empId" column="emp_id" />
+		<id property="id" column="emp_id" />
 		<result property="firstName" column="first_name" />
 		<result property="lastName" column="last_name" />
 		<result property="gender" column="gender" />
 		<result property="birthDate" column="birth_date" />
 		<result property="hireDate" column="hire_date" />
+		<result property="version" column="version" />
 	</resultMap>
 
 	<select id="findAll" resultMap="EmpResultMap">
@@ -26,8 +27,8 @@
 
 	<select id="findByQuery"  resultMap="EmpResultMap" parameterType="EmpQuery">
 		SELECT * FROM employee where 1 = 1 
-		<if test="empId != null">
-    		AND emp_id = #{empId}
+		<if test="id != null">
+    		AND emp_id = #{id}
  	 </if>
   		<if test="firstName != null">
     		AND first_name like #{firstName}
@@ -41,22 +42,25 @@
 	<insert id="save" parameterType="Emp">
 		insert into employee(emp_id,first_name,last_name,gender,birth_date,hire_date)
 		values
-		(#{empId},#{firstName},#{lastName},#{gender},#{birthDate},#{hireDate})
+		(#{id},#{firstName},#{lastName},#{gender},#{birthDate},#{hireDate})
 	</insert>
 	
-	<update id="update" parameterType="Emp">
+	<update id="update" parameterType="Emp"  >
 		update employee set first_name = #{firstName} ,
 							last_name = #{lastName},
 							gender = #{gender} ,
 							birth_date = #{birthDate},
-							hire_date  = #{hireDate} 
-							where emp_id = #{empId}
+							hire_date  = #{hireDate} ,
+							version = version + 1
+							where 
+							emp_id = #{id} and
+							version = #{version}
 	
 	</update>
 	
 	
 	<delete id="delete" parameterType="java.lang.Integer">
-		delete from employee where emp_id = #{empId}			
+		delete from employee where emp_id = #{id}			
 	
 	</delete>
 </mapper>

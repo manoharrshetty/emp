@@ -3,7 +3,7 @@ package com.emp.model;
 import java.util.Date;
 
 
-public class EmpQuery {
+public class EmpQuery extends Entity{
 	
    
     
@@ -11,19 +11,14 @@ public class EmpQuery {
    
 	
 	
-	private  Integer empId;
 	
     private  String firstName;
     private String lastName;
     private String gender;
     private Date birthDate;
     private Date hireDate;
-	public Integer getEmpId() {
-		return empId;
-	}
-	public void setEmpId(Integer empId) {
-		this.empId = empId;
-	}
+
+	
 	public String getFirstName() {
 		return firstName;
 	}

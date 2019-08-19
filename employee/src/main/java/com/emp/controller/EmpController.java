@@ -28,11 +28,12 @@ public class EmpController {
     @Autowired
     private EmpService employeeService;
     
-   
+    
+    
     @RequestMapping(value = "/employee/emp",   params = { "empId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<Emp> findByEmpId(@RequestParam(value="empId")  Integer empId) {
     	EmpQuery query = new EmpQuery();
-    	query.setEmpId(empId);
+    	query.setId(empId);
     	return employeeService.findByQuery(query);
 	}
     

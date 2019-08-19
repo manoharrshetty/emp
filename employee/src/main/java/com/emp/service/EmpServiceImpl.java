@@ -1,6 +1,8 @@
 package com.emp.service;
 
 import static com.emp.enums.MessageKey.EMPLOYEE_DOESNOT_EXIT;
+import static com.emp.enums.MessageKey.UPDATE_NOT_SUCCESSFUL;
+import static com.emp.enums.MessageKey.DELETE_NOT_SUCCESSFUL;
 import static com.emp.util.MessageUtil.MESSAGE_PROPERTIES_INSTANCE;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class EmpServiceImpl  implements EmpService {
 	public Emp save(Emp employee) {
 		
 		int empId  = employeeMapper.findNextSeq();
-		employee.setEmpId(empId);
+		employee.setId(empId);
 		
 		employeeMapper.save(employee);
 		return employee;
@@ -41,7 +43,10 @@ public class EmpServiceImpl  implements EmpService {
 	@Override
 	public Emp update(Emp employee) {
 		
-		employeeMapper.update(employee);
+		int count = employeeMapper.update(employee);
+		if (count == 0 ) {
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(UPDATE_NOT_SUCCESSFUL.name()), employee.getId()));
+		}
 		
 		return employee;
 		
@@ -49,12 +54,12 @@ public class EmpServiceImpl  implements EmpService {
 	@Transactional
 	@Override
 	public void delete(Integer id) {
-		List<Emp> employees  = employeeMapper.findById(id);
-		if (employees.isEmpty()) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(EMPLOYEE_DOESNOT_EXIT.name()), id));
+			
+		int count  = employeeMapper.delete(id);
+		if (count == 0 ) {
+			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(DELETE_NOT_SUCCESSFUL.name()), id));
 		}
 		
-		employeeMapper.delete(id);
 
 	}
 	

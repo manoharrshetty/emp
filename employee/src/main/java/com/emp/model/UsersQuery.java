@@ -2,10 +2,10 @@ package com.emp.model;
 
 
 
-public class UsersQuery {
+public class UsersQuery extends Entity{
  
    
-    private Integer usersId;
+   
  
    	
     private String name;
@@ -14,13 +14,7 @@ public class UsersQuery {
     
     private String role;
 
-	public Integer getUsersId() {
-		return usersId;
-	}
 
-	public void setUsersId(Integer usersId) {
-		this.usersId = usersId;
-	}
 
 	public String getName() {
 		return name;

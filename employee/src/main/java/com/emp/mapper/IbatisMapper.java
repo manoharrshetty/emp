@@ -2,19 +2,19 @@ package com.emp.mapper;
 
 import java.util.List;
 
-public interface IbatisMapper<Model, Query, Key> {
-	List<Model> findById(Key key);
+public interface IbatisMapper<M, Q, K> {
+	List<M> findById(K key);
 
-	List<Model> findByQuery(Query query);
+	List<M> findByQuery(Q query);
 
-	List<Model> findAll();
+	List<M> findAll();
 
 	Integer findNextSeq();
 
-	void save(Model model);
+	Integer save(M model);
 
-	void update(Model model);
+	Integer update(M model);
 
-	void delete(Key key);
+	Integer delete(K key);
 
 }

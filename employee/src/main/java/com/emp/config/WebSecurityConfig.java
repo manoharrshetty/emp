@@ -76,7 +76,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
    		return encoder;
    	}
     
-    
+    /**
+     * add etag header element for GET request.Can be used for reducing network bandwidth and for concurrency
+     * @return
+     */
     @Bean
     public Filter shallowEtagHeaderFilter() {
         return new ShallowEtagHeaderFilter();
