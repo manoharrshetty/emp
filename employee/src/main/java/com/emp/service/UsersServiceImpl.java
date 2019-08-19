@@ -11,7 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.emp.mapper.EmpMapper;
 import com.emp.mapper.UsersMapper;
+import com.emp.model.Emp;
+import com.emp.model.EmpQuery;
 import com.emp.model.Users;
 import com.emp.model.UsersQuery;
 
@@ -19,56 +22,57 @@ import com.emp.model.UsersQuery;
 @Service
 public class UsersServiceImpl  implements UsersService {
 	
+	private EmployeeService<Users,UsersQuery,Integer> employeeService;
+	
+	/**The below constructor is same as doing what we are doing below.
+	 * 
+	 * The constructor autowire becomes usefull if we have to initialize something that needs the mapper object on construction of this object.
+	 * @Autowired
+	 * UsersMapper usersMapper
+	 */
+	
+	
 	@Autowired
-    private UsersMapper usersMapper;
+	public UsersServiceImpl(UsersMapper usersMapper) {
+		employeeService =  new EmployeeService<>(usersMapper);
+	}
+
+	
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@Override
 	public List<Users> findAll() {
-		List<Users> users  = usersMapper.findAll();
-		return users;
+		return employeeService.findAll();
+		
 	}
 	@Transactional
 	@Override
 	public Users save(Users users) {
-		
-		int empId  = usersMapper.findNextSeq();
-		users.setId(empId);
-
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
-		
-		usersMapper.save(users);
-		
-		return users;
+		return employeeService.save(users);
 		
 	}
+	
 	@Transactional
 	@Override
 	public Users update(Users users) {
 		users.setPassword(passwordEncoder.encode(users.getPassword()));
-		int count  = usersMapper.update(users);
-		if (count == 0 ) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(UPDATE_NOT_SUCCESSFUL.name()), users.getId()));
-		}
-		return users;
+		return employeeService.update(users,users.getId());
 		
 	}
 	
 	@Transactional
 	@Override
 	public void delete(Integer id) {
-		
-		int count = usersMapper.delete(id);
-		if (count == 0 ) {
-			throw new RuntimeException(String.format(MESSAGE_PROPERTIES_INSTANCE.getMessage(DELETE_NOT_SUCCESSFUL.name()), id));
-		}
+		employeeService.delete(id);
 	}
 	
 	@Override
 	public List<Users> findByQuery(UsersQuery usersQuery) {
-		List<Users> users  = usersMapper.findByQuery(usersQuery);
-		return users;
+		return employeeService.findByQuery(usersQuery);
+		
 	}
 	
 	

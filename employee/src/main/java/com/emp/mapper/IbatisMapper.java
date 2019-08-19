@@ -3,7 +3,7 @@ package com.emp.mapper;
 import java.util.List;
 
 public interface IbatisMapper<M, Q, K> {
-	List<M> findById(K key);
+	M findById(K key);
 
 	List<M> findByQuery(Q query);
 
