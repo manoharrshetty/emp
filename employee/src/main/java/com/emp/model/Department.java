@@ -1,23 +1,17 @@
 package com.emp.model;
 
-public class Department {
+public class Department extends Entity{
 	
    
     
     
    
 	
-	private  Integer id;
+	
 	
     private  String deptName;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 
 	public String getDeptName() {
 		return deptName;

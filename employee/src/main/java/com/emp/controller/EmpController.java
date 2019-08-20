@@ -26,7 +26,7 @@ import com.emp.service.EmpService;
 public class EmpController {
 	
     @Autowired
-    private EmpService employeeService;
+    private EmpService empService;
     
     
     
@@ -34,7 +34,7 @@ public class EmpController {
     public List<Emp> findByEmpId(@RequestParam(value="empId")  Integer empId) {
     	EmpQuery query = new EmpQuery();
     	query.setId(empId);
-    	return employeeService.findByQuery(query);
+    	return empService.findByQuery(query);
 	}
     
     /**
@@ -48,7 +48,7 @@ public class EmpController {
      */
     @RequestMapping(value = "/employee/emp",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<Emp> findByQuery(@ModelAttribute("employeeQuery") Optional<EmpQuery> 	employeeQuery) {
-    	return employeeService.findByQuery(employeeQuery.orElse(new EmpQuery()));
+    	return empService.findByQuery(employeeQuery.orElse(new EmpQuery()));
 	}
     
 	
@@ -61,7 +61,7 @@ public class EmpController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employee/emp")
     public Emp save(@RequestBody Emp newEmployee) {
-    	return employeeService.save(newEmployee);
+    	return empService.save(newEmployee);
     }
     
     /*
@@ -70,13 +70,13 @@ public class EmpController {
   
     @PutMapping("/employee/emp")
     public Emp put(@RequestBody Emp employee) {
-    	return employeeService.update(employee);
+    	return empService.update(employee);
     }
     
     
     @DeleteMapping(value = "/employee/emp",   params = { "empId"})
     public void delete(@RequestParam(value="empId")  Integer empId) {
-    	 employeeService.delete(empId);
+    	 empService.delete(empId);
     	 
     }
     
