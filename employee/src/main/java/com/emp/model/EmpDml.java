@@ -1,10 +1,10 @@
 package com.emp.model;
 
-public class Emp extends Entity {
+public class EmpDml{
 
 	private EmpBasic empBasic;
 
-	private Dept dept;
+	private Integer deptId;
 
 	public EmpBasic getEmpBasic() {
 		return empBasic;
@@ -14,12 +14,14 @@ public class Emp extends Entity {
 		this.empBasic = empBasic;
 	}
 
-	public Dept getDept() {
-		return dept;
+	public Integer getDeptId() {
+		return deptId;
 	}
 
-	public void setDept(Dept dept) {
-		this.dept = dept;
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
+
+	
 
 }

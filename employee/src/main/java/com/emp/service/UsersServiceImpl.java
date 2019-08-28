@@ -22,7 +22,7 @@ import com.emp.model.UsersQuery;
 @Service
 public class UsersServiceImpl  implements UsersService {
 	
-	private EmployeeService<Users,UsersQuery,Integer> employeeService;
+	private AppDomainService<Users,UsersQuery,Integer> employeeService;
 	
 	/**The below constructor is same as doing what we are doing below.
 	 * 
@@ -34,7 +34,7 @@ public class UsersServiceImpl  implements UsersService {
 	
 	@Autowired
 	public UsersServiceImpl(UsersMapper usersMapper) {
-		employeeService =  new EmployeeService<>(usersMapper);
+		employeeService =  new AppDomainService<>(usersMapper);
 	}
 
 	

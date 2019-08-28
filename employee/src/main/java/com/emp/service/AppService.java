@@ -2,7 +2,7 @@ package com.emp.service;
 
 import java.util.List;
 
-public interface DomainService<Model,Query> {
+public interface AppService<Model,Query> {
 	
 	
 	public List<Model> findAll();

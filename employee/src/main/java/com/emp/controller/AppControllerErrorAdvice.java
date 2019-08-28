@@ -19,8 +19,8 @@ import com.emp.exception.EmpNotFoundException;
  *
  */
 @ControllerAdvice
-public class EmpControllerErrorAdvice extends ResponseEntityExceptionHandler {
-	Logger logger = LoggerFactory.getLogger(EmpControllerErrorAdvice.class);	
+public class AppControllerErrorAdvice extends ResponseEntityExceptionHandler {
+	Logger logger = LoggerFactory.getLogger(AppControllerErrorAdvice.class);	
 	
 	
 	@ExceptionHandler(EmpNotFoundException.class)

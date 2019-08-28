@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Aspect
 @Configuration
-public class EmployeeAspectConfig {
+public class AppAspectConfig {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
   
     

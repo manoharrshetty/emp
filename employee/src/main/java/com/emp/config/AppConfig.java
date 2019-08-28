@@ -33,7 +33,10 @@ public class AppConfig  {
       authProvider.setPasswordEncoder(passwordEncoder());
       return authProvider;
   }
-    
+    /** BCryptPasswordEncoder does the hash along with salt
+     * 
+     * @return
+     */
     @Bean
    	public PasswordEncoder passwordEncoder(){
    		PasswordEncoder encoder = new BCryptPasswordEncoder();

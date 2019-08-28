@@ -18,25 +18,25 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emp.model.Dept;
+import com.emp.model.DeptQuery;
 import com.emp.model.Emp;
-import com.emp.model.EmpDml;
 import com.emp.model.EmpQuery;
-import com.emp.service.EmpService;
+import com.emp.service.DeptService;
 
 
 @RestController
-public class EmpController {
+public class DeptController {
 	
     @Autowired
-    private EmpService empService;
+    private DeptService deptService;
     
     
     
-    @RequestMapping(value = "/employee/emp",   params = { "empId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Emp> findByEmpId(@RequestParam(value="empId")  Integer empId) {
-    	EmpQuery query = new EmpQuery();
-    	query.setId(empId);
-    	return empService.findByQuery(query);
+    @RequestMapping(value = "/employee/dept",   params = { "deptId"},produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<Dept> findByDeptId(@RequestParam(value="deptId")  Integer deptId) {
+    	DeptQuery query = new DeptQuery();
+    	query.setId(deptId);
+    	return deptService.findByQuery(query);
 	}
     
     /**
@@ -48,9 +48,9 @@ public class EmpController {
      * @param lastName
      * @return
      */
-    @RequestMapping(value = "/employee/emp",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public List<Emp> findByQuery(@ModelAttribute("employeeQuery") Optional<EmpQuery> 	employeeQuery) {
-    	return empService.findByQuery(employeeQuery.orElse(new EmpQuery()));
+    @RequestMapping(value = "/employee/dept",  produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public List<Dept> findByQuery(@ModelAttribute("deptQuery") Optional<DeptQuery> 	deptQuery) {
+    	return deptService.findByQuery(deptQuery.orElse(new DeptQuery()));
 	}
     
 	
@@ -61,34 +61,24 @@ public class EmpController {
     
     //return 201 instead of 200
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/employee/emp")
-    public Emp save(@RequestBody EmpDml newEmp) {
-    	Emp emp = new Emp();
-    	emp.setEmpBasic(newEmp.getEmpBasic());
-    	Dept dept = new Dept();
-    	dept.setId(newEmp.getDeptId());
-    	emp.setDept(dept);
-   	   	return empService.save(emp);
+    @PostMapping("/employee/dept")
+    public Dept save(@RequestBody Dept newDept) {
+    	return deptService.save(newDept);
     }
     
     /*
      * Remember for put and delete body @RequestBody can exist too !!
      */
   
-    @PutMapping("/employee/emp")
-    public Emp put(@RequestBody EmpDml updatedEmp) {
-    	Emp emp = new Emp();
-    	emp.setEmpBasic(updatedEmp.getEmpBasic());
-    	Dept dept = new Dept();
-    	dept.setId(updatedEmp.getDeptId());
-    	emp.setDept(dept);
-    	return empService.update(emp);
+    @PutMapping("/employee/dept")
+    public Dept put(@RequestBody Dept dept) {
+    	return deptService.update(dept);
     }
     
     
-    @DeleteMapping(value = "/employee/emp",   params = { "empId"})
-    public void delete(@RequestParam(value="empId")  Integer empId) {
-    	 empService.delete(empId);
+    @DeleteMapping(value = "/employee/dept",   params = { "deptId"})
+    public void delete(@RequestParam(value="empId")  Integer deptId) {
+    	 deptService.delete(deptId);
     	 
     }
     

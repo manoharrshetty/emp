@@ -3,17 +3,22 @@
 <mapper namespace="com.emp.mapper.UsersMapper">
 	<resultMap id="UsersResultMap" type="Users">
 		<id property="id" column="users_id" />
-		<result property="name" column="name" />
-		<result property="role" column="role" />
-
+		<result property="name" column="users_name" />
+		<result property="role" column="users_role" />
+		<result property="password" column="users_password" />
+		<result property="version" column="users_version" />
 	</resultMap>
 
-
+	<sql id="usersColumns"> 
+			users_id,name as users_name ,role as users_role ,password as users_password,version as users_version
+			</sql>
 
 
 	<select id="findAll" resultMap="UsersResultMap">
 	    <!-- if you use * to get all fields then password will also be retrieved because the field name matches both in the model and sql table !! -->
-		SELECT users_id,name,role FROM users
+		SELECT 
+		<include refid="usersColumns"></include>
+		 FROM users
 	</select>
 	<select id="findById" resultMap="UsersResultMap" parameterType="java.lang.Integer">
 		SELECT * FROM users where users_id = #{id}
@@ -28,9 +33,12 @@
 
 	<select id="findByQuery" resultMap="UsersResultMap"
 		parameterType="UsersQuery">
-		SELECT users_id,name,role FROM users where 1 = 1
+		SELECT 
+		<include refid="usersColumns"></include>
+		
+		FROM users where 1 = 1
 		<if test="id != null">
-			AND users_id = #{usersId}
+			AND users_id = #{id}
 		</if>
 		<if test="name != null">
 			AND name like #{name}
@@ -40,7 +48,10 @@
 		</if>
 	</select>
 	<select id="findByName" resultMap="UsersResultMap">
-		SELECT * FROM users where name = #{name}
+	
+		SELECT 
+		<include refid="usersColumns"></include>
+		 FROM users where name = #{name}
 	</select>
 
 	<insert id="save" parameterType="Users">

@@ -17,11 +17,11 @@ import com.emp.model.Entity;
  * @param <Q>
  * @param <K>
  */
-public class EmployeeService<M extends Entity,Q,K> {
+public class AppDomainService<M extends Entity,Q,K> {
 	
 	IbatisMapper<M,Q,K> mapper;
 
-	public EmployeeService(IbatisMapper<M,Q,K> mapper) {
+	public AppDomainService(IbatisMapper<M,Q,K> mapper) {
 		this.mapper = mapper;
 	}
 	

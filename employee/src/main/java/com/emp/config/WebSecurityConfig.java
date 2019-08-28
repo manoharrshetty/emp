@@ -8,7 +8,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
+/**
+ * @EnableWebSecurity tells Spring Boot to drop its autoconfigured security policy and use this one instead. 
+ * For quick demos, autoconfigured security is okay. But for anything real, you should write the policy yourself.
+ * @author manoh
+ *
+ */
 @EnableWebSecurity//enable Spring Security’s web security support and provide the Spring MVC integration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -19,6 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	/**
 	 * The configure(HttpSecurity) method defines which URL paths should be secured
 	 * and which should not.It also specifies the role
+	 * 
+	 * 
 	 */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,7 +43,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.PUT, "/employee/emp/**").hasAnyRole("USER","ADMIN")
         .antMatchers(HttpMethod.PATCH, "/employee/emp/**").hasAnyRole("USER","ADMIN")
         .antMatchers(HttpMethod.DELETE, "/employee/emp/**").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.GET, "/employee/dept/**").hasAnyRole("USER","ADMIN")//all get request must be made by user has USER/ADMIN role configured in the user table.
+        .antMatchers(HttpMethod.POST, "/employee/dept").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.PUT, "/employee/dept/**").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.PATCH, "/employee/dept/**").hasAnyRole("USER","ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/employee/dept/**").hasAnyRole("USER","ADMIN")
         .and()
+        /*disable Cross-Site Request Forgery (CSRF)
+         * BASIC login is also configured with CSRF disabled. This is mostly for demonstrations and not recommended for production systems without careful analysis.
+        */
         .csrf().disable()
         .formLogin().disable();
     }

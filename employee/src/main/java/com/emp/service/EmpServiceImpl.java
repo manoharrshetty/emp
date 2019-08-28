@@ -14,7 +14,7 @@ import com.emp.model.EmpQuery;
 
 public class EmpServiceImpl  implements EmpService {
 
-	private EmployeeService<Emp,EmpQuery,Integer> employeeService;
+	private AppDomainService<Emp,EmpQuery,Integer> employeeService;
 	
 	/**The below constructor is same as doing what we are doing below.
 	 * 
@@ -25,8 +25,9 @@ public class EmpServiceImpl  implements EmpService {
 	
 	
 	@Autowired
-	public EmpServiceImpl(EmpMapper employeeMapper) {
-		employeeService =  new EmployeeService<>(employeeMapper);
+	public EmpServiceImpl(EmpMapper empMapper) {
+		employeeService =  new AppDomainService<>(empMapper);
+		
 	}
 
 	
@@ -39,14 +40,18 @@ public class EmpServiceImpl  implements EmpService {
 	@Transactional
 	@Override
 	public Emp save(Emp employee) {
-		return employeeService.save(employee);
+		employeeService.save(employee);
+		return employeeService.findById(employee.getId());
+		
+		
 	}
 	
 	@Transactional
 	@Override
 	public Emp update(Emp employee) {
-		return employeeService.update(employee,employee.getId());
-			
+		employeeService.update(employee,employee.getId());
+		return employeeService.findById(employee.getId());
+					
 	}
 	@Transactional
 	@Override
