@@ -15,8 +15,8 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'gs-rest-employee'
-    version =  '0.0.1-SNAPSHOT'
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
 }
 
 repositories {
@@ -32,16 +32,14 @@ targetCompatibility = 1.9
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
- 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
-  	compile("org.springframework.boot:spring-boot-starter-security")
- 	compile group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
-	//this is used for connection pool
-	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
- 	
- 	//for aop
-	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.2'
+// https://mvnrepository.com/artifact/javax.servlet/jstl
+compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+ 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.1'
+ 	// https://mvnrepository.com/artifact/org.eclipse.jdt.core.compiler/ecj
+	compile group: 'org.eclipse.jdt.core.compiler', name: 'ecj', version: '4.6.1'
  	
   	
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('com.jayway.jsonpath:json-path')
+  	
+   
 }

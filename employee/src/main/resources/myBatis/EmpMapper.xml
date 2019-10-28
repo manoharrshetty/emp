@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.emp.mapper.EmpMapper">
+	<resultMap id="empResultMap" type="Emp">
+		<id property="id" column="emp_id" />
+		<result property="lastModifiedDate" column="emp_last_modified_date" />	
+		<result property="version" column="emp_version" />	
+		
+		<result property="empBasic.firstName" column="emp_first_name" />
+		<result property="empBasic.lastName" column="emp_last_name" />
+		<result property="empBasic.gender" column="emp_gender" />
+		<result property="empBasic.birthDate" column="emp_birth_date" />
+		<result property="empBasic.hireDate" column="emp_hire_date" />
+		
+		 <association property="dept" resultMap="com.emp.mapper.DeptMapper.deptResultMap"/>
+	</resultMap>
+
+	<sql id="empColumns"> 
+			emp.emp_id     as emp_id,
+			emp.first_name as emp_first_name,
+			emp.last_name  as emp_last_name,
+			emp.gender     as emp_gender,
+			emp.birth_date as emp_birth_date,
+			emp.hire_date  as emp_hire_date,
+			emp.version    as emp_version,
+			emp.last_modified_date as emp_last_modified_date
+	 </sql>
+	
+
+	<select id="findAll" resultMap="empResultMap">
+		SELECT 
+		<include refid="empColumns"></include>,
+		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
+		 FROM emp emp left join dept dept on emp.dept_id = dept.dept_id
+	</select>
+
+
+	<select id="findById" resultMap="empResultMap" parameterType="java.lang.Integer">
+	
+		SELECT 
+		
+		<include refid="empColumns"></include>,
+		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
+		 FROM emp emp left join dept dept on emp.dept_id = dept.dept_id 
+		 where emp.emp_id = #{id}
+	</select>
+
+	<select id="findNextSeq" resultType="java.lang.Integer">
+		SELECT emp_seq.nextval FROM dual
+	</select>
+
+
+	<select id="findByQuery"  resultMap="empResultMap" parameterType="EmpQuery">
+		SELECT 
+		<include refid="empColumns"></include>,
+		<include refid="com.emp.mapper.DeptMapper.deptColumns"></include>
+		 FROM emp emp left join dept dept on  emp.dept_id = dept.dept_id 
+		 where 1 = 1 
+		<if test="id != null">
+    		AND emp_id = #{id}
+ 	 </if>
+  		<if test="firstName != null">
+    		AND first_name like #{firstName}
+  		</if>
+  		<if test="lastName != null">
+    		AND last_name like #{lastName}
+  		</if>
+	</select>
+
+
+	<insert id="save" parameterType="Emp">
+		insert into emp(emp_id,first_name,last_name,gender,birth_date,hire_date,dept_id)
+		values
+		(#{id},#{empBasic.firstName},#{empBasic.lastName},#{empBasic.gender},#{empBasic.birthDate},#{empBasic.hireDate},#{dept.id})
+	</insert>
+	
+	<update id="update" parameterType="Emp"  >
+		update emp set first_name = #{empBasic.firstName} ,
+							last_name = #{empBasic.lastName},
+							gender = #{empBasic.gender} ,
+							birth_date = #{empBasic.birthDate},
+							hire_date  = #{empBasic.hireDate} ,
+							version = version + 1
+							where 
+							emp_id = #{id} and
+							version = #{version}
+	
+	</update>
+	
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from emp where emp_id = #{id}			
+	
+	</delete>
+</mapper>
+
+
